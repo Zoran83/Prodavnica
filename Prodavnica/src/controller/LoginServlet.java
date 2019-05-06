@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Admin;
 import service.LoginMetode;
 
 /**
@@ -25,9 +26,21 @@ public class LoginServlet extends HttpServlet {
 		String password=request.getParameter("password");
 		
 		LoginMetode login = new LoginMetode();
-		
+		Admin admin = new Admin();
 		if (login.daLiPostojiUser(userName)) {
 			//nastavi ispitivanje passworda
+			if(login.daLiJeDobarPass(userName, password)) {
+				//sve ok
+				if(userName.equals(admin.getAdminUserName()) && password.equals(admin.getAdminPassword())) {
+					//idi na admin
+					response.sendRedirect("jsp/admin.html");
+				}else {
+					// idi na user nalog
+					response.sendRedirect("jsp/user.html");
+				}
+			}else {
+				response.sendRedirect("index.html");
+			}
 		} else {
 			response.sendRedirect("index.html");
 		}
