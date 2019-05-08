@@ -86,4 +86,40 @@ public class LoginMetode {
 			sesija.close();
 		}
 	}
+	
+	public User vratiUsera(String userName, String password) {
+		User user = null;
+		Session sesija = sf.openSession();
+		sesija.beginTransaction();
+		
+		try {
+				
+				String hql = "from User where userName=:un and password=:pass";
+				Query query = sesija.createQuery(hql);
+				query.setParameter("un", userName);
+				query.setParameter("pass", password);
+				user = (User)query.getResultList().get(0);
+				sesija.getTransaction().commit();
+				
+				return user;
+							
+			}catch(Exception e) {
+				sesija.getTransaction().rollback();
+				return null;			
+							
+			}finally {
+				sesija.close();
+			}
+				
+	}	
 }
+				
+				
+				
+				
+			
+			
+			
+		
+	
+

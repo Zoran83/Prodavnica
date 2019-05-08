@@ -8,5 +8,13 @@
 </head>
 <body>
 	<h1>Dobrodosli Admin!</h1>
+	
+	<form action="../dodajProizvodServlet" method="get">
+		<input type="text" placeholder="name" name="productName" ><br>
+		<input type="text" placeholder="price" name="productPrice" ><br>
+		<input type="text" placeholder="stock" name="productStock" ><br>
+		<input type="text" placeholder="discount" name="productDiscount" ><br>
+		<input type="submit" value="dodaj proizvod">
+	</form>
 </body>
 </html>

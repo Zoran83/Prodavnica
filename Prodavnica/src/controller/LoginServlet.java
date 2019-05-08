@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Admin;
+import model.User;
 import service.LoginMetode;
 
 /**
@@ -30,6 +32,11 @@ public class LoginServlet extends HttpServlet {
 		if (login.daLiPostojiUser(userName)) {
 			//nastavi ispitivanje passworda
 			if(login.daLiJeDobarPass(userName, password)) {
+				User user = login.vratiUsera(userName, password);
+				
+				HttpSession sesija = request.getSession();
+				sesija.setAttribute("Valter", user);
+				
 				//sve ok
 				if(userName.equals(admin.getAdminUserName()) && password.equals(admin.getAdminPassword())) {
 					//idi na admin
